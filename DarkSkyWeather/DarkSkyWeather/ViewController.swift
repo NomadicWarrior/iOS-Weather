@@ -22,8 +22,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     let locationManager = CLLocationManager();
     
     // url addres and key given by darksky website
-    let weatherURL = ""
-    let key = ""
+    let weatherURL = "https://api.darksky.net/forecast/"
+    let key = "8c266d664d6da6b7123b05fa0b23e4b8"
     
     override func viewDidLoad()
     {
@@ -73,6 +73,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                 if response.result.isSuccess
                 {
                     print("Success")
+                    let weatherJSON : JSON = JSON(response.result.value!)
+                    print(weatherJSON)
                 }
                 else
                 {
