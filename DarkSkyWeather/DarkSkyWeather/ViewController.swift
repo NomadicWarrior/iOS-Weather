@@ -23,7 +23,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     let locationManager = CLLocationManager();
     
     // url addres and key given by darksky website
-    let weatherURL = "https://api.darksky.net/forecast/8c266d664d6da6b7123b05fa0b23e4b8/"
+    let weatherURL = "https://api.darksky.net/forecast/YOUR_SECRET_KEY/"
     
     
     override func viewDidLoad()
