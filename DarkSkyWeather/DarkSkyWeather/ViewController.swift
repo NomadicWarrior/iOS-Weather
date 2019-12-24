@@ -18,15 +18,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var weatherDescriptionLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var weatherIcon: UIImageView!
     
     let locationManager = CLLocationManager();
     
     // url addres and key given by darksky website
     let weatherURL = "https://api.darksky.net/forecast/8c266d664d6da6b7123b05fa0b23e4b8/"
     
-    
-    var la = ""
-    var lo = ""
     
     override func viewDidLoad()
     {
@@ -75,7 +73,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                 if response.result.isSuccess
                 {
                     let weatherJSON : JSON = JSON(response.result.value!)
-                    print(weatherJSON)
+                    self.updateWeatherDate(json: weatherJSON)
                 }
                 else
                 {
@@ -83,6 +81,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate
                 }
         }
         
+    }
+    
+    func updateWeatherDate(json: JSON)
+    {
+        if let tempResult = json["currently"]["temperature"].double
+        {
+            let fahrResult = Int(tempResult)
+            let temp = (fahrResult - 32) * 5 / 9
+            tempLabel.text = String(temp)
+            cityLabel.text = json["timezone"].stringValue
+            weatherDescriptionLabel.text = json["currently"]["summary"].stringValue
+        }
+        else
+        {
+            
+        }
     }
 }
 
