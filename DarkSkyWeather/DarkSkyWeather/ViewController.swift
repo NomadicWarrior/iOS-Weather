@@ -22,8 +22,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     let locationManager = CLLocationManager();
     
     // url addres and key given by darksky website
-    let weatherURL = "https://api.darksky.net/forecast/"
-    let key = "8c266d664d6da6b7123b05fa0b23e4b8"
+    let weatherURL = "https://api.darksky.net/forecast/8c266d664d6da6b7123b05fa0b23e4b8/"
+    
+    
+    var la = ""
+    var lo = ""
     
     override func viewDidLoad()
     {
@@ -51,10 +54,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate
             let lat = String(location.coordinate.latitude)
             let lon = String(location.coordinate.longitude)
             
-            
-            let params : [String : String] = ["key" : key, "latitude": lat, "longitude" : lon]
-            
-            getWeatherData(url: weatherURL, parametr: params)
+            // Call
+            getWeatherData(url: weatherURL, latitude: lat, longitude: lon)
         }
     }
     
@@ -65,14 +66,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate
     }
     
     // Get Weather from DarkSky Website
-    func getWeatherData(url: String, parametr: [String : String])
+    func getWeatherData(url: String, latitude: String, longitude: String)
     {
-        Alamofire.request(url, method: .get, parameters: parametr).responseJSON
+       let urlStr = "\(weatherURL)\(latitude),\(longitude)"
+        Alamofire.request(urlStr, method: .get,parameters: nil).responseJSON
             {
                 response in
                 if response.result.isSuccess
                 {
-                    print("Success")
                     let weatherJSON : JSON = JSON(response.result.value!)
                     print(weatherJSON)
                 }
